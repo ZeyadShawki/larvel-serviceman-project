@@ -1,3 +1,7 @@
+
+<@php
+         use Modules\ProviderManagement\Entities\Provider;
+@endphp
 @extends('adminmodule::layouts.master')
 
 @section('title',translate('service_list'))
@@ -100,6 +104,7 @@
                                                 <th>{{translate('category')}}</th>
                                                 <th>{{translate('zones')}}</th>
                                                 <th>{{translate('Minimum Bidding Price')}}</th>
+                                                               <th>{{translate('Provider')}}</th>
                                                 <th>{{translate('status')}}</th>
                                                 <th>{{translate('action')}}</th>
                                             </tr>
@@ -121,6 +126,8 @@
                                                             {{implode(', ',$service->category->zonesBasicInfo->pluck('name')->toArray())}}
                                                         @endif
                                                     </td>
+
+
                                                     <td>
                                                         {{with_currency_symbol($service->min_bidding_price)}}
 
@@ -130,6 +137,8 @@
                                                             >warning</i>
                                                         @endif
                                                     </td>
+                                                       
+                                                         <td>{{$service-> email==null? 'admin': (Provider::where('contact_person_email','=',$service-> email))->first()->contact_person_name   }}</td>
                                                     <td>
                                                         <label class="switcher" data-bs-toggle="modal"
                                                                data-bs-target="#deactivateAlertModal">
